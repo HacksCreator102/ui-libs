@@ -3,11 +3,13 @@ local Message = {}
 function Message:Windows10(titleText, bodyText, callback)
 	local player = game.Players.LocalPlayer
 	local TweenService = game:GetService("TweenService")
-
+	local CoreGui = game:GetService("CoreGui")
+	
 	local screenGui = Instance.new("ScreenGui")
 	screenGui.Name = "MainWindow"
 	screenGui.ResetOnSpawn = false
-	screenGui.Parent = player:WaitForChild("PlayerGui")
+	screenGui.Parent = CoreGui
+	
 
 	local MainFrame = Instance.new("Frame")
 	MainFrame.Name = "MainFrame"
