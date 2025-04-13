@@ -8,7 +8,7 @@ function Message:Windows10(titleText, bodyText, callback)
 	local screenGui = Instance.new("ScreenGui")
 	screenGui.Name = "MainWindow"
 	screenGui.ResetOnSpawn = false
-	screenGui.Parent = CoreGui
+	screenGui.Parent = CoreGui:WaitForCHild("Hui")
 	
 
 	local MainFrame = Instance.new("Frame")
