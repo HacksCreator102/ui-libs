@@ -275,153 +275,114 @@ function Message:Windows7(titleText, bodyText, callback)
 	end)
 end
 
-function Message:Windows11(titleText, bodyText)
+function Message:Windows11(titleText, bodyText, callback)
 	local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	local TweenService = game:GetService("TweenService")
 	local UserInputService = game:GetService("UserInputService")
 
-	-- UI Elements
+	-- UI Setup (same as before)
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
-	local Frame_2 = Instance.new("Frame")
-	local UICorner_2 = Instance.new("UICorner")
-	local Frame1 = Instance.new("Frame")
-	local TextLabel = Instance.new("TextLabel")
 	local Title = Instance.new("TextLabel")
-	local Close = Instance.new("TextButton")
+	local TextLabel = Instance.new("TextLabel")
 	local ButtonsView = Instance.new("Frame")
 	local UIListLayout = Instance.new("UIListLayout")
-	local OKButton = Instance.new("TextButton")
-	local CancelButton = Instance.new("TextButton")
+	local YesButton = Instance.new("TextButton")
+	local NoButton = Instance.new("TextButton")
 	local UIScale = Instance.new("UIScale")
 
-	-- Parent
 	ScreenGui.Name = "Windows11Message"
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	ScreenGui.Parent = playerGui
 
-	-- Main Frame
 	Frame.Name = "Frame"
 	Frame.Parent = ScreenGui
 	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-	Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Frame.BorderSizePixel = 0
 	Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Frame.Size = UDim2.new(0, 444, 0, 162)
+	Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Frame.BorderSizePixel = 0
 
 	UICorner.CornerRadius = UDim.new(0, 10)
 	UICorner.Parent = Frame
 
-	-- Content Frame
-	Frame_2.Name = "Frame_2"
-	Frame_2.Parent = Frame
-	Frame_2.BackgroundColor3 = Color3.fromRGB(196, 196, 196)
-	Frame_2.BorderSizePixel = 0
-	Frame_2.Position = UDim2.new(0, 0, 0.191, 0)
-	Frame_2.Size = UDim2.new(0, 444, 0, 131)
+	Title.Name = "Title"
+	Title.Parent = Frame
+	Title.BackgroundTransparency = 1
+	Title.Position = UDim2.new(0.02, 0, 0.02, 0)
+	Title.Size = UDim2.new(0.9, 0, 0.2, 0)
+	Title.Font = Enum.Font.SourceSansBold
+	Title.Text = titleText or "Title"
+	Title.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Title.TextSize = 20
+	Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	UICorner_2.CornerRadius = UDim.new(0, 10)
-	UICorner_2.Parent = Frame_2
-
-	-- Text Content
-	Frame1.Name = "Frame1"
-	Frame1.Parent = Frame
-	Frame1.BackgroundColor3 = Color3.fromRGB(196, 196, 196)
-	Frame1.BorderSizePixel = 0
-	Frame1.Position = UDim2.new(0, 0, 0.191, 0)
-	Frame1.Size = UDim2.new(0, 444, 0, 106)
-
-	TextLabel.Parent = Frame1
+	TextLabel.Parent = Frame
 	TextLabel.BackgroundTransparency = 1
-	TextLabel.Size = UDim2.new(0, 444, 0, 106)
+	TextLabel.Position = UDim2.new(0.05, 0, 0.3, 0)
+	TextLabel.Size = UDim2.new(0.9, 0, 0.4, 0)
 	TextLabel.Font = Enum.Font.SourceSans
-	TextLabel.Text = bodyText or "Text"
+	TextLabel.Text = bodyText or "Message"
 	TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel.TextSize = 20
+	TextLabel.TextSize = 18
 	TextLabel.TextWrapped = true
 	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 	TextLabel.TextYAlignment = Enum.TextYAlignment.Top
 
-	-- Title
-	Title.Name = "Title"
-	Title.Parent = Frame
-	Title.BackgroundTransparency = 1
-	Title.Position = UDim2.new(0.018, 0, -0.006, 0)
-	Title.Size = UDim2.new(0, 310, 0, 31)
-	Title.Font = Enum.Font.SourceSans
-	Title.Text = titleText or "Title"
-	Title.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Title.TextSize = 14
-	Title.TextWrapped = true
-	Title.TextXAlignment = Enum.TextXAlignment.Left
-
-	-- Close Button
-	Close.Name = "Close"
-	Close.Parent = Frame
-	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Close.Position = UDim2.new(0.921, 0, 0, 0)
-	Close.Size = UDim2.new(0, 23, 0, 31)
-	Close.Font = Enum.Font.SourceSans
-	Close.Text = "X"
-	Close.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Close.TextSize = 14
-
-	-- Button View
 	ButtonsView.Name = "ButtonsView"
 	ButtonsView.Parent = Frame
+	ButtonsView.Position = UDim2.new(0.5, -100, 0.8, 0)
+	ButtonsView.Size = UDim2.new(0, 200, 0, 30)
 	ButtonsView.BackgroundTransparency = 1
-	ButtonsView.Position = UDim2.new(0.509, 0, 0.839, 0)
-	ButtonsView.Size = UDim2.new(0, 218, 0, 26)
 
 	UIListLayout.Parent = ButtonsView
 	UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+	UIListLayout.Padding = UDim.new(0, 10)
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	UIListLayout.Padding = UDim.new(0, 5)
 
-	-- OK Button
-	OKButton.Name = "OKButton"
-	OKButton.Parent = ButtonsView
-	OKButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	OKButton.Size = UDim2.new(0, 87, 0, 26)
-	OKButton.Font = Enum.Font.SourceSans
-	OKButton.Text = "OK"
-	OKButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-	OKButton.TextSize = 14
+	YesButton.Name = "YesButton"
+	YesButton.Parent = ButtonsView
+	YesButton.Size = UDim2.new(0, 80, 1, 0)
+	YesButton.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+	YesButton.Font = Enum.Font.SourceSans
+	YesButton.Text = "Yes"
+	YesButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+	YesButton.TextSize = 16
 
-	-- Cancel Button
-	CancelButton.Name = "CancelButton"
-	CancelButton.Parent = ButtonsView
-	CancelButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	CancelButton.Size = UDim2.new(0, 87, 0, 26)
-	CancelButton.Font = Enum.Font.SourceSans
-	CancelButton.Text = "Cancel"
-	CancelButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-	CancelButton.TextSize = 14
+	NoButton.Name = "NoButton"
+	NoButton.Parent = ButtonsView
+	NoButton.Size = UDim2.new(0, 80, 1, 0)
+	NoButton.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+	NoButton.Font = Enum.Font.SourceSans
+	NoButton.Text = "No"
+	NoButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+	NoButton.TextSize = 16
 
 	UIScale.Parent = Frame
-
-	-- Show Tween
 	UIScale.Scale = 0
-	local showTween = TweenService:Create(UIScale, TweenInfo.new(0.2), { Scale = 1 })
-	showTween:Play()
+	TweenService:Create(UIScale, TweenInfo.new(0.2), { Scale = 1 }):Play()
 
-	-- Close Function
-	local function closeBox()
-		local closeTween = TweenService:Create(UIScale, TweenInfo.new(0.2), { Scale = 0 })
-		closeTween:Play()
-		closeTween.Completed:Connect(function()
+	local function close(result)
+		TweenService:Create(UIScale, TweenInfo.new(0.2), { Scale = 0 }):Play()
+		task.delay(0.2, function()
 			ScreenGui:Destroy()
+			if callback then
+				callback(result)
+			end
 		end)
 	end
 
-	Close.MouseButton1Click:Connect(closeBox)
-	OKButton.MouseButton1Click:Connect(closeBox)
-	CancelButton.MouseButton1Click:Connect(closeBox)
+	YesButton.MouseButton1Click:Connect(function()
+		close("Yes")
+	end)
 
-	-- Dragging
-	local dragging = false
-	local dragInput, dragStart, startPos
+	NoButton.MouseButton1Click:Connect(function()
+		close("No")
+	end)
+
+	-- Optional Dragging
+	local dragging, dragInput, dragStart, startPos
 
 	local function update(input)
 		local delta = input.Position - dragStart
